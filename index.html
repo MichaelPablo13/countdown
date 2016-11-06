@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exemplo de timers</title>
+    <meta charset="utf-8" />
+    <script lang="javascript">
+        function inc() {
+            p1 = document.getElementById("tempo");
+            p1.value++;
+        }
+
+        var the_timer = setInterval( decrement() ,50);
+
+
+        function dec() {
+            //var that will be worked for the countdown
+            var p1 = document.getElementById("tempo");
+            /*document.getElementById("expose").innerHTML =*/
+            p1.value--;
+        }
+
+        function clearclock() {
+
+            clearInterval(the_timer);
+
+        }
+
+        (function() {
+            var update = document.getElementById("liveUpdate");
+            var count = {
+                digit: 0,
+                increment: function() {
+                            var interval = setInterval(function() {
+                                if (++count.digit == 10) {
+                                    clearInterval(interval);
+                                    count.decrement();
+                                }
+                        update.innerHTML = count.digit;
+                    }, 500);
+                },
+                decrement: function() {
+                    var interval = setInterval(function() {
+                        if (--count.digit == -1) {
+                            clearInterval(interval);
+                        }
+                        update.innerHTML = count.digit;
+                    }, 500);
+                }
+            };
+            count.increment();
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <button onclick="the_timer=setInterval(dec, 50)">Cronômetro</button>
+    <button onclick="clearclock(the_timer)">Clean</button>
+    <input type="text" id="tempo" value="0" autofocus="autofocus">
+    <p id="test"></p>
+</html>
